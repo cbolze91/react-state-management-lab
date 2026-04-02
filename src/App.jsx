@@ -90,7 +90,6 @@ const [zombieFighters, setZombieFighters] = useState([
 )
 
 const handleAddFighter = (fighter) => {
-
   //Check money before purchase
   if (money < fighter.price) {
     console.log('Not enough money')
@@ -113,21 +112,51 @@ const handleAddFighter = (fighter) => {
 
 };
 
+const totalStrength = team.reduce((total, t) => {
+  return total + t.strength;
+}, 0); 
+
+const totalAgility = team.reduce((total, t) => {
+  return total + t.agility;
+}, 0);
+
   return(
 
     <>
-    <h1>Zombie Fighters</h1>
+    <h1>Zombie Fighters</h1><br />
 
-    <h2>Money: {money} </h2>
+    <h2>Money: ${money} </h2><br />
+
+    <h2>Team's Total Strength: {totalStrength}</h2><br />
+
+    <h2>Team's Total Agility: {totalAgility}</h2><br />
+
+    <h2>Your Team:</h2>
+      {team.length === 0 ? 
+      (<p>Pick some team members!</p>
+      ) : (
+      <ul>
+        {team.map((t) => (
+          <li key={t.id}> 
+            <img src={t.img} alt={t.name} />
+            <h2>{t.name}</h2> 
+            <p>${t.price}</p>
+            <p>Strength: {t.strength}</p>
+            <p>Agility: {t.agility}</p>
+          </li>
+          ))}
+        </ul>
+      )}
     
+    <br /><h2>Purchase a Fighter:</h2>
       <ul>
         {zombieFighters.map((fighter) => 
          <li key={fighter.id}> 
          <img src={fighter.img} alt={fighter.name} />
          <h2>{fighter.name}</h2> 
-         <p>{fighter.price}</p>
-         <p>{fighter.strength}</p>
-         <p>{fighter.agility}</p>
+         <p>${fighter.price}</p>
+         <p>Strength: {fighter.strength}</p>
+         <p>Agility: {fighter.agility}</p>
          
          <button onClick={() => handleAddFighter(fighter)}> Add Fighter </button>
          </li>
