@@ -112,6 +112,19 @@ const handleAddFighter = (fighter) => {
 
 };
 
+const handleRemoveTeammate = (teammate) => {
+//Add back to zombieFighters
+  setZombieFighters([...zombieFighters, teammate]);
+
+  //Remove from Team
+  const updatedTeam = team.filter(
+    (t) => t.id !== teammate.id
+  );
+
+  //Update Team
+  setTeam(updatedTeam);
+}
+
 const totalStrength = team.reduce((total, t) => {
   return total + t.strength;
 }, 0); 
@@ -143,6 +156,8 @@ const totalAgility = team.reduce((total, t) => {
             <p>${t.price}</p>
             <p>Strength: {t.strength}</p>
             <p>Agility: {t.agility}</p>
+
+            <button onClick={() => handleRemoveTeammate(t)}> Remove Teammate </button>
           </li>
           ))}
         </ul>
