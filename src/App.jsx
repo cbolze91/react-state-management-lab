@@ -89,6 +89,30 @@ const [zombieFighters, setZombieFighters] = useState([
 ]
 )
 
+const handleAddFighter = (fighter) => {
+
+  //Check money before purchase
+  if (money < fighter.price) {
+    console.log('Not enough money')
+    return;
+  }
+
+  //Add to team
+  setTeam([...team, fighter]);
+
+  //Remove from zombieFighters
+  const updatedFighters = zombieFighters.filter(
+    (f) => f.id !== fighter.id
+  );
+
+  //Update State
+  setZombieFighters(updatedFighters);
+
+  //Subtract Money
+  setMoney(money - fighter.price);
+
+};
+
   return(
 
     <>
@@ -105,7 +129,7 @@ const [zombieFighters, setZombieFighters] = useState([
          <p>{fighter.strength}</p>
          <p>{fighter.agility}</p>
          
-         <button>Add Fighter</button>
+         <button onClick={() => handleAddFighter(fighter)}> Add Fighter </button>
          </li>
         )}
       </ul>
