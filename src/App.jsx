@@ -93,6 +93,8 @@ const [zombieFighters, setZombieFighters] = useState([
 
     <>
     <h1>Zombie Fighters</h1>
+
+    <h2>Money: {money} </h2>
     
       <ul>
         {zombieFighters.map((fighter) => 
